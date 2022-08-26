@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum AIStateId
 {
-    collectBrick,
+    collectBrick, buildBridge, fall, idle
 }
 public interface AIState 
 {

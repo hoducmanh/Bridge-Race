@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7575746312841352278}
   - component: {fileID: 7575746312841352277}
   - component: {fileID: 7575746312841352276}
-  m_Layer: 6
+  m_Layer: 13
   m_Name: Blue Brick
   m_TagString: BlueBrick
   m_Icon: {fileID: 0}

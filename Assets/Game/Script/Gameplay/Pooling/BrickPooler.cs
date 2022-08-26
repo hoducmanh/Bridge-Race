@@ -17,7 +17,6 @@ public class BrickPooler : Singleton<BrickPooler>
             this.size = size;
         }
     }
-    private int counter;
 
     public Dictionary<string, int> BrickCounter = new Dictionary<string, int>();
     public List<Pool> pools;

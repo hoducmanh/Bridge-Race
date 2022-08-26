@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PlayerCollectBrick : Singleton<PlayerCollectBrick>
+public class PlayerCollectBrick : MonoBehaviour
 {
     [SerializeField] private Transform root;
-    [SerializeField] private Stack<GameObject> brick = new Stack<GameObject>();
+    public Stack<GameObject> brick = new Stack<GameObject>();
     [SerializeField] private Stack<Vector3> brickPos = new Stack<Vector3>();
     [SerializeField] private Transform brickPlacer;
     [SerializeField] private Transform placedBrick;
     [SerializeField] private Transform placedBricks;
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject rootOfBrick; //only use for removing all brick
+    public LayerMask BrickLayerMask;
+    public BrickColor Tag;
+    public Dictionary<BrickColor, string> color = new Dictionary<BrickColor, string>();
 
     private int brickNum = 0;
-    //private float brickCount;
     private Vector3 bridgePos;
     BrickPooler objPool;
-    public PlayerMovement playerMove;
+    public PlayerMovement PlayerMove;
 
-    private void Start()
+    protected virtual void Start()
     {
         objPool = BrickPooler.Instance;
+        color.Add(BrickColor.BlueBrick, Value.BLUE_BRICK);
+        color.Add(BrickColor.GreenBrick, Value.GREEN_BRICK);
+        color.Add(BrickColor.RedBrick, Value.RED_BRICK);    
     }
     private void FixedUpdate()
     {
@@ -58,19 +64,20 @@ public class PlayerCollectBrick : Singleton<PlayerCollectBrick>
     private void CheckBridge()
     {
         RaycastHit hit;
-        if (Physics.Raycast(brickPlacer.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity))
+        if (Physics.Raycast(brickPlacer.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, BrickLayerMask))
         {
             Debug.DrawRay(brickPlacer.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
             if (hit.collider.CompareTag(Value.BRIDGE))
             {
-                Debug.Log("hit");
+                //Debug.Log("hit");
                 if (brickNum > 0)
                 {
                     PlaceBricks(hit);
                 }
                 else
                 {
-                    RestrictForwardMovement();
+                    if(color[Tag] == Value.BLUE_BRICK)
+                        PlayerMove.RestrictForwardMovement();
                 }
             }
 
@@ -86,22 +93,30 @@ public class PlayerCollectBrick : Singleton<PlayerCollectBrick>
         bridgePos = hit.collider.transform.position;
         hit.collider.gameObject.SetActive(false);
         Instantiate(placedBrick, bridgePos, placedBrick.transform.rotation, placedBricks);
-        DropBrick(Value.BLUE_BRICK);
+        DropBrick(color[Tag]);
         brickNum--;
     }
-
     private void DropBrick(string tag)
     {
         GameObject lastBrick = brick.Pop();
-        Vector3 lastBrickPos = brickPos.Pop();
-        lastBrick.transform.SetParent(null);
-        objPool.DespawnToPool(tag, lastBrick);
-        objPool.SpawnFromPool(tag, lastBrickPos, Quaternion.identity);
+       if(lastBrick != null)
+        {
+            //Debug.Log(tag);
+            Vector3 lastBrickPos = brickPos.Pop();
+            lastBrick.transform.SetParent(null);
+            objPool.DespawnToPool(tag, lastBrick);
+            objPool.SpawnFromPool(tag, lastBrickPos, Quaternion.identity);
+        }
         //rootPos.y -= 0.1f; 
     }
-
-    private void RestrictForwardMovement()
+    public void RemoveAllBrick()
     {
-        playerMove.canMoveForward = false;
+        rootOfBrick.SetActive(false);
+    }
+    public enum BrickColor
+    {
+        BlueBrick,
+        GreenBrick,
+        RedBrick
     }
 }

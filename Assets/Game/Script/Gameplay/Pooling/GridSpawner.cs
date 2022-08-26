@@ -8,7 +8,7 @@ public class GridSpawner : MonoBehaviour
     private int randomizeBrick;
     public float gridSpacingOffset;
     public Vector3 gridOrigin;
-    private bool isSpawnOnFloor2, isSpawnOnFloor3;
+    public bool isSpawnOnFloor2, isSpawnOnFloor3;
     void Start()
     {
         SpawnGrid(30);

@@ -12,6 +12,8 @@ TagManager:
   - Floor1
   - Floor2
   - Floor3
+  - GreenBrick
+  - RedBrick
   layers:
   - Default
   - TransparentFX
@@ -23,12 +25,12 @@ TagManager:
   - Red player
   - Green player
   - Blue bridge
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Green bridge
+  - Red bridge
+  - Bridge
+  - Blue brick
+  - Green Brick
+  - Red Brick
   - 
   - 
   - 
