@@ -16,7 +16,7 @@ public class PlayerCollectBrick : MonoBehaviour
     public LayerMask BrickLayerMask;
     public BrickColor Tag;
     public Dictionary<BrickColor, string> color = new Dictionary<BrickColor, string>();
-
+    public bool isOnBridge;
     private int brickNum = 0;
     private Vector3 bridgePos;
     BrickPooler objPool;
@@ -69,7 +69,7 @@ public class PlayerCollectBrick : MonoBehaviour
             Debug.DrawRay(brickPlacer.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
             if (hit.collider.CompareTag(Value.BRIDGE))
             {
-                //Debug.Log("hit");
+                isOnBridge = true;
                 if (brickNum > 0)
                 {
                     PlaceBricks(hit);
@@ -80,7 +80,8 @@ public class PlayerCollectBrick : MonoBehaviour
                         PlayerMove.RestrictForwardMovement();
                 }
             }
-
+            else if(hit.collider.CompareTag(Value.FIRST_FLOOR)|| hit.collider.CompareTag(Value.SECOND_FLOOR)|| hit.collider.CompareTag(Value.THIRD_FLOOR))
+                isOnBridge = false;
         }
         else
         {
@@ -98,10 +99,11 @@ public class PlayerCollectBrick : MonoBehaviour
     }
     private void DropBrick(string tag)
     {
-        GameObject lastBrick = brick.Pop();
-       if(lastBrick != null)
+        int cnt = brick.Count;
+        
+        if(cnt > 0)
         {
-            //Debug.Log(tag);
+            GameObject lastBrick = brick.Pop();
             Vector3 lastBrickPos = brickPos.Pop();
             lastBrick.transform.SetParent(null);
             objPool.DespawnToPool(tag, lastBrick);
@@ -109,6 +111,22 @@ public class PlayerCollectBrick : MonoBehaviour
         }
         //rootPos.y -= 0.1f; 
     }
+    public void DropAllBrick()
+    {
+        int cnt = brick.Count;
+        //if (cnt > 0)
+        //{
+        //    for (int i = 0; i < cnt; i++)
+        //    {
+        //        DropBrick(color[Tag]);
+        //    }
+        //}
+        for (int i = 0; i < cnt; i++)
+        {
+            DropBrick(color[Tag]);
+        }
+    }
+
     public void RemoveAllBrick()
     {
         rootOfBrick.SetActive(false);

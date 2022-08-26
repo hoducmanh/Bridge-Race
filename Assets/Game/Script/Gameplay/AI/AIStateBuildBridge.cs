@@ -10,7 +10,7 @@ public class AIStateBuildBridge : AIState
     }
     public void Enter(AIAgent agent)
     {
-        agent.Anim.SetFloat(Value.CURRENT_ANIM_VELOCITY, 1f);
+        /*agent.Anim.SetFloat(Value.CURRENT_ANIM_VELOCITY, 1f);
         if (agent.enemyRef.CurrStage == Stage.Two)
         {
             Debug.LogError("enter this");
@@ -24,23 +24,39 @@ public class AIStateBuildBridge : AIState
         {
             //Debug.Log("still here");
             agent.NavAgent.destination = WaypointControl.Instance.firstWaypoint.position;
+        }*/
+        agent.Anim.SetFloat(Value.CURRENT_ANIM_VELOCITY, 1f);
+        switch (agent.enemyRef.CurrStage)
+        {
+            case Stage.One:
+                agent.NavAgent.destination = WaypointControl.Instance.firstWaypoint.position;
+                break;
+            case Stage.Two:
+                agent.NavAgent.destination = WaypointControl.Instance.secondWaypoint.position;
+                break;
+            case Stage.Three:
+                agent.NavAgent.destination = WaypointControl.Instance.thirdWaypoint.position;
+                break;
+            default:
+                break;
         }
-        
     }
     public void Update(AIAgent agent)
     {
+        //Debug.Log(agent.NavAgent.destination);
         if(agent.enemyRef.brick.Count <= 0)
         {
             agent.StateMachine.ChangeState(AIStateId.collectBrick);
         }
+        if(agent.enemyRef.CurrStage == Stage.One)
+        {
+            agent.NavAgent.destination = WaypointControl.Instance.firstWaypoint.position;
+        }
         if(agent.enemyRef.CurrStage == Stage.Two)
         {
-/*            Debug.Log(agent.NavAgent.destination);
-*/            agent.NavAgent.SetDestination(WaypointControl.Instance.thirdWaypoint.position);
-            Debug.Log("3rd"+WaypointControl.Instance.thirdWaypoint.position);
-            
+            agent.NavAgent.destination = WaypointControl.Instance.secondWaypoint.position;         
         }
-        if (agent.enemyRef.CurrStage == Stage.Three)
+        else if (agent.enemyRef.CurrStage == Stage.Three)
         {
             agent.NavAgent.SetDestination(WaypointControl.Instance.thirdWaypoint.position);
         }

@@ -19,6 +19,7 @@ public class AIAgent : MonoBehaviour
         StateMachine = new AIStateMachine(this);
         StateMachine.RegisterState(new AIStateCollectBrick());
         StateMachine.RegisterState(new AIStateBuildBridge());
+        StateMachine.RegisterState(new AIStateFall());
         StateMachine.ChangeState(InitialState);
     }
 

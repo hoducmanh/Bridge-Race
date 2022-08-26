@@ -3576,7 +3576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811143839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 10.1, z: 28.01}
+  m_LocalPosition: {x: 0.15, y: 9.88, z: 28.12}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1708840025}
@@ -5064,7 +5064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365663413}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14, y: 3.43, z: 8.34}
+  m_LocalPosition: {x: -0.14, y: 3.25, z: 8.29}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1708840025}
@@ -5550,7 +5550,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583133081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14, y: 6.76, z: 18.29}
+  m_LocalPosition: {x: 0.14, y: 6.44, z: 18.24}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1708840025}
@@ -10214,13 +10214,16 @@ MonoBehaviour:
   rootOfBrick: {fileID: 1355454411}
   BrickLayerMask:
     serializedVersion: 2
-    m_Bits: 6656
+    m_Bits: 6657
   Tag: 1
+  isOnBridge: 0
   PlayerMove: {fileID: 0}
   agent: {fileID: 4506761525046704498}
   navAgent: {fileID: 4506761525046704497}
   targetTrans: {fileID: 0}
   CurrStage: 0
+  Col: {fileID: 4506761525046704499}
+  animator: {fileID: 1379053637923539524}
 --- !u!54 &4506761525046704501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11112,7 +11115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!195 &5658946114425522821
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -11127,7 +11130,7 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -11169,13 +11172,16 @@ MonoBehaviour:
   rootOfBrick: {fileID: 34182093}
   BrickLayerMask:
     serializedVersion: 2
-    m_Bits: 5632
+    m_Bits: 5633
   Tag: 2
+  isOnBridge: 0
   PlayerMove: {fileID: 0}
   agent: {fileID: 5658946114425522824}
   navAgent: {fileID: 5658946114425522821}
   targetTrans: {fileID: 0}
-  CurrStage: 0
+  CurrStage: 1
+  Col: {fileID: 5658946114425522822}
+  animator: {fileID: 1379053637923539524}
 --- !u!114 &5658946114425522824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12420,8 +12426,8 @@ MonoBehaviour:
   joystick: {fileID: 102833146}
   Col: {fileID: 7660830926859228112}
   PlayerTrans: {fileID: 6997306907089504629}
+  _animator: {fileID: 4033889752486302479}
   canMoveForward: 0
-  IsOnBridge: 0
   PlayerCol: {fileID: 7660830926859228116}
 --- !u!54 &7660830926859228114
 Rigidbody:
@@ -12459,8 +12465,9 @@ MonoBehaviour:
   rootOfBrick: {fileID: 1858046892}
   BrickLayerMask:
     serializedVersion: 2
-    m_Bits: 7168
+    m_Bits: 7169
   Tag: 0
+  isOnBridge: 0
   PlayerMove: {fileID: 7660830926859228113}
 --- !u!195 &7660830926859228117
 NavMeshAgent:

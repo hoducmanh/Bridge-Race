@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 v_movement;
     private float speed = 2f;
     public Transform PlayerTrans;
-    private Animator _animator;
+    public Animator _animator;
     private Transform meshPlayer;
     public bool canMoveForward;
     private bool canMove;
@@ -103,9 +103,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag(Value.PLAYER))
         {
             Enemy enemy = other.GetComponent<Enemy>();
-            if(PlayerCol.brick.Count < enemy.brick.Count)
+            if (!PlayerCol.isOnBridge)
             {
-                TriggerFall();
+                if (PlayerCol.brick.Count < enemy.brick.Count)
+                {
+                    TriggerFall();
+                    PlayerCol.DropAllBrick();
+                }
             }
         }
     }

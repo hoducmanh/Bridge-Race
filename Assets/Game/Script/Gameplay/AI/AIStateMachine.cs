@@ -7,7 +7,7 @@ public class AIStateMachine
     public AIState[] states;
     public AIAgent agent;
     public AIStateId currState;
-    //public AIStateId prevState;
+    public AIStateId prevState;
     public AIStateMachine(AIAgent agent)
     {
         this.agent = agent;
@@ -33,7 +33,7 @@ public class AIStateMachine
     public void ChangeState(AIStateId newState)
     {
         GetState(currState)?.Exit(agent);
-        agent.currState = newState;
+        prevState = currState;
         currState = newState;
         GetState(currState)?.Enter(agent);
     }
